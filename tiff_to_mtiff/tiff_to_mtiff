@@ -1,0 +1,26 @@
+//setBatchMode(true);
+strt_n=0; //start loop at this count. Change this value only for diagnostics
+tot_n=499; //number of files
+tot_frm = 48;
+rootd="E:\\DATA\\" //root directory including drive name
+dayf="20160721"; //folder named according to date on which data was acquired
+df="MDCK_CA0709eGFP5"; //folder containing actual SPIM data
+
+for(j=0;j<=1;j++){
+	for(i=strt_n;i<=9;i++){
+	open(rootd+dayf+"\\"+df+"\\ARM1\\"+df+"_A  "+i+"\\"+df+"_AT"+IJ.pad(i,3)+"Z"+IJ.pad(j,2)+".tif");
+	}
+	run("Images to Stack", "name=Stack title=[] use");
+	
+	for(i=10;i<=99;i++){
+	open(rootd+dayf+"\\"+df+"\\ARM1\\"+df+"_A "+i+"\\"+df+"_AT"+IJ.pad(i,3)+"Z"+IJ.pad(j,2)+".tif");
+	}
+	run("Images to Stack", "name=Stack title=[] use");
+
+	for(i=100;i<=tot_n;i++){
+	open(rootd+dayf+"\\"+df+"\\ARM1\\"+df+"_A"+i+"\\"+df+"_AT"+IJ.pad(i,3)+"Z"+IJ.pad(j,2)+".tif");
+	}
+	run("Images to Stack", "name=Stack title=[] use");
+	run("Concatenate...", "all_open title=[Concatenated Stacks]");
+}
+//run("Concatenate...", "all_open title=[Concatenated Stacks]");
